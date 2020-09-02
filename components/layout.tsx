@@ -1,15 +1,15 @@
-import Head from 'next/head'
-import Link from 'next/link'
+import Head from "next/head";
+import Link from "next/link";
 
-const name = '[Your Name]'
-export const siteTitle = 'Next.js Sample Website'
+const name = "[Your Name]";
+export const siteTitle = "Next.js Sample Website";
 
 export default function Layout({
   children,
-  home
+  home,
 }: {
-  children: React.ReactNode
-  home?: boolean
+  children: React.ReactNode;
+  home?: boolean;
 }) {
   return (
     <div>
@@ -31,20 +31,14 @@ export default function Layout({
       <header>
         {home ? (
           <>
-            <img
-              src="/images/profile.jpg"
-              alt={name}
-            />
+            <img src="/images/profile.jpg" alt={name} />
             <h1>{name}</h1>
           </>
         ) : (
           <>
             <Link href="/">
               <a>
-                <img
-                  src="/images/profile.jpg"
-                  alt={name}
-                />
+                <img src="/images/profile.jpg" alt={name} />
               </a>
             </Link>
             <h2>
@@ -64,5 +58,5 @@ export default function Layout({
         </div>
       )}
     </div>
-  )
+  );
 }
