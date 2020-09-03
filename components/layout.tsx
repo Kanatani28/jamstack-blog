@@ -4,13 +4,13 @@ import Link from "next/link";
 const name = "[Your Name]";
 export const siteTitle = "Next.js Sample Website";
 
-export default function Layout({
+const Layout = ({
   children,
   home,
 }: {
   children: React.ReactNode;
   home?: boolean;
-}) {
+}): JSX.Element => {
   return (
     <div>
       <Head>
@@ -59,4 +59,6 @@ export default function Layout({
       )}
     </div>
   );
-}
+};
+
+export default Layout;

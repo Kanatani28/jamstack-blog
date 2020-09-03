@@ -4,7 +4,7 @@ import Head from "next/head";
 import Date from "../../components/date";
 import { GetStaticProps, GetStaticPaths } from "next";
 
-export default function Post({
+const Post = ({
   postData,
 }: {
   postData: {
@@ -12,7 +12,7 @@ export default function Post({
     date: string;
     contentHtml: string;
   };
-}) {
+}): JSX.Element => {
   return (
     <Layout>
       <Head>
@@ -27,7 +27,9 @@ export default function Post({
       </article>
     </Layout>
   );
-}
+};
+
+export default Post;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllPostIds();
