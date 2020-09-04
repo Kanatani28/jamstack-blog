@@ -4,6 +4,11 @@ import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
 import Date from "../components/date";
 import { GetStaticProps } from "next";
+import ArticleCard from "../components/atoms/ArticleCard";
+import Pagination from "../components/atoms/Pagination";
+
+const TEST_TITLE =
+  "Spring×Kotlin×MySQL×Mybatis×ThymeleafでサンプルWebアプリ作ってみた";
 
 const Home = ({
   allPostsData,
@@ -20,37 +25,42 @@ const Home = ({
         <title>{siteTitle}</title>
       </Head>
       <section>
-        <div className="hero">
-          <h1 className="title">Next.js + Tailwind CSS </h1>
-          <p className="text-center text-teal-500 text-2xl py-4">
-            This is an Example.
-          </p>
+        <div className="grid grid-cols-1 gap-4">
+          <ArticleCard
+            title={TEST_TITLE}
+            url="a"
+            date="2017-04-20"
+            bodyBegining="a"
+            top
+          />
+          <div className="grid grid-cols-2 gap-4">
+            <ArticleCard
+              title={TEST_TITLE}
+              url="a"
+              date="2017-04-20"
+              bodyBegining="a"
+            />
+            <ArticleCard
+              title={TEST_TITLE}
+              url="a"
+              date="2017-04-20"
+              bodyBegining="a"
+            />
+            <ArticleCard
+              title={TEST_TITLE}
+              url="a"
+              date="2017-04-20"
+              bodyBegining="a"
+            />
+            <ArticleCard
+              title={TEST_TITLE}
+              url="a"
+              date="2017-04-20"
+              bodyBegining="a"
+            />
+          </div>
         </div>
-        <p>[Your Self Introduction]</p>
-        <p>
-          (This is a sample website - you’ll be building a site like this in{" "}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
-        </p>
-      </section>
-      <section>
-        <h2>Blog</h2>
-        <ul>
-          {allPostsData.map(({ id, date, title }) => (
-            <li key={id}>
-              <Link href="/posts/[id]" as={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
-              <br />
-              <small
-                className={
-                  "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
-                }
-              >
-                <Date dateString={date} />
-              </small>
-            </li>
-          ))}
-        </ul>
+        <Pagination />
       </section>
     </Layout>
   );

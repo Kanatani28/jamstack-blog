@@ -1,8 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
+import HeaderLink from "./atoms/headerLink";
+import Copyright from "./atoms/Copyright";
 
-const name = "[Your Name]";
-export const siteTitle = "Next.js Sample Website";
+export const siteTitle = "まろぶろぐ";
 
 const Layout = ({
   children,
@@ -29,27 +30,28 @@ const Layout = ({
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header>
-        {home ? (
-          <>
-            <img src="/images/profile.jpg" alt={name} />
-            <h1>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <a>
-                <img src="/images/profile.jpg" alt={name} />
-              </a>
-            </Link>
-            <h2>
-              <Link href="/">
-                <a>{name}</a>
-              </Link>
-            </h2>
-          </>
-        )}
+        <div className="container mx-auto grid grid-cols-4">
+          <HeaderLink title="About" url="about" />
+          <HeaderLink title="Other" url="other" />
+        </div>
+        <div className="hero bg-red-100">
+          <h1 className="title">{siteTitle}</h1>
+          <p className="text-center text-teal-500 text-2xl py-4">
+            This is an Example.
+          </p>
+        </div>
       </header>
-      <main>{children}</main>
+      <main className="container mx-auto">{children}</main>
+      <footer className="bg-red-100">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-4">
+            <HeaderLink title="About" url="about" />
+            <HeaderLink title="Other" url="other" />
+          </div>
+          <hr />
+          <Copyright />
+        </div>
+      </footer>
       {!home && (
         <div>
           <Link href="/">
