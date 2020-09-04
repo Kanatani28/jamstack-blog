@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import HeaderLink from "./atoms/headerLink";
+import HeaderLink from "./atoms/HeaderLink";
 import Copyright from "./atoms/Copyright";
 
 export const siteTitle = "まろぶろぐ";
