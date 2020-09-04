@@ -27,7 +27,7 @@ const ArticleCard = ({
       />
       <div className="px-6 py-4">
         <Date dateString={date} />
-        <div className={classNames([top ? "text-3xl" : "text-3xl", "mb-2"])}>
+        <div className={classNames([top ? "text-xl" : "text-xl", "mb-2"])}>
           {title}
         </div>
         <p className="text-gray-700 text-base">

@@ -8,7 +8,7 @@ const HeaderLink = ({
   url: string;
 }): JSX.Element => (
   <Link href={url}>
-    <a className="py-10 text-lg">{title}</a>
+    <a className="py-4 text-sm">{title}</a>
   </Link>
 );
 

@@ -30,13 +30,13 @@ const Layout = ({
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header>
-        <div className="container mx-auto grid grid-cols-4">
+        <div className="container mx-auto grid grid-cols-6">
           <HeaderLink title="About" url="about" />
           <HeaderLink title="Other" url="other" />
         </div>
         <div className="hero bg-red-100">
           <h1 className="title">{siteTitle}</h1>
-          <p className="text-center text-teal-500 text-2xl py-4">
+          <p className="text-center text-teal-500 text-xl py-4">
             This is an Example.
           </p>
         </div>
@@ -44,7 +44,7 @@ const Layout = ({
       <main className="container mx-auto">{children}</main>
       <footer className="bg-red-100">
         <div className="container mx-auto">
-          <div className="grid grid-cols-4">
+          <div className="grid grid-cols-6">
             <HeaderLink title="About" url="about" />
             <HeaderLink title="Other" url="other" />
           </div>
