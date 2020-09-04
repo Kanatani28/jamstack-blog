@@ -15,4 +15,8 @@
   line-height: 1.15;
 }
 
+body {
+  font-family: "Avenir Next", 'Helvetica Neue', Helvetica, Arial, YuGothic, 'Yu Gothic', 'MS Gothic', sans-serif !important;
+} 
+
 @tailwind utilities;
