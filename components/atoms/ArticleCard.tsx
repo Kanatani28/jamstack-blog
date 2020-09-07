@@ -15,9 +15,6 @@ const ArticleCard = ({
   bodyBegining: string;
   top?: boolean;
 }): JSX.Element => (
-  //   <Link href={url}>
-  //     <a className="py-10 text-lg">{title}</a>
-  //   </Link>
   <>
     <div className="rounded overflow-hidden shadow-lg">
       <img
@@ -27,10 +24,16 @@ const ArticleCard = ({
       />
       <div className="px-6 py-4">
         <Date dateString={date} />
-        <div className={classNames([top ? "text-xl" : "text-xl", "mb-2"])}>
+        <div className={classNames([top ? "text-3xl" : "text-xl", "mb-2"])}>
           {title}
         </div>
-        <p className="text-gray-700 text-base">
+        <p
+          className={classNames([
+            "text-gray-700",
+            top ? "text-base" : "text-sm",
+            "mb-2",
+          ])}
+        >
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
           quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
           nihil.
