@@ -8,8 +8,8 @@ const Header = ({ title }: { title: string }): JSX.Element => (
     </div>
     <div className="hero bg-red-100">
       <h1 className="title">{title}</h1>
-      <p className="text-center text-teal-500 text-xl py-4">
-        This is an Example.
+      <p className="text-center text-gray-700 text-md py-5">
+        ゆるく、アグレッシブにアウトプットします
       </p>
     </div>
   </header>
