@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Header from "./molecules/Header";
 import Footer from "./molecules/Footer";
+import SideBar from "./molecules/SideBar";
 
 export const siteTitle = "まろぶろぐ";
 
@@ -31,25 +32,10 @@ const Layout = ({
       </Head>
       <Header title={siteTitle} />
       <main className="container mx-auto px-20">
-        <div>
+        <div className="my-5">
           <div className="float-left w-2/3">{children}</div>
-          <div className="float-left w-1/3 bg-gray-400">
-            <div className="max-w-sm overflow-hidden mx-3">
-              <div className="px-6 py-4">
-                <div className="text-center font-bold text-xl mb-2">TAGS</div>
-                <div className="px-6 pt-4 pb-2">
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                    #photography
-                  </span>
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                    #travel
-                  </span>
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                    #winter
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="float-left w-1/3">
+            <SideBar />
           </div>
           <div className="clear-both"></div>
         </div>
