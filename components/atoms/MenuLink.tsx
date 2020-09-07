@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const HeaderLink = ({
+const MenuLink = ({
   title,
   url,
 }: {
@@ -12,4 +12,4 @@ const HeaderLink = ({
   </Link>
 );
 
-export default HeaderLink;
+export default MenuLink;
