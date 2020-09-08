@@ -26,7 +26,7 @@ const ArticleCard = ({
     };
   }[];
 }): JSX.Element => (
-  <Link href={url}>
+  <Link href={`posts/${url}`}>
     <a>
       <div className="rounded overflow-hidden shadow-lg">
         <img

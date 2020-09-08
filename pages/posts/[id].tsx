@@ -3,27 +3,31 @@ import { getAllPostIds, getPostData } from "../../lib/posts";
 import Head from "next/head";
 import Date from "../../components/date";
 import { GetStaticProps, GetStaticPaths } from "next";
+import { getAllTags } from "../../lib/tags";
+import marked from "marked";
 
 const Post = ({
   postData,
+  allTags,
 }: {
   postData: {
     title: string;
-    date: string;
-    contentHtml: string;
+    createdAt: string;
+    body: string;
   };
+  allTags: any;
 }): JSX.Element => {
   return (
-    <Layout>
+    <Layout tags={allTags}>
       <Head>
         <title>{postData.title}</title>
       </Head>
       <article>
         <h1>{postData.title}</h1>
         <div>
-          <Date dateString={postData.date} />
+          <Date dateString={postData.createdAt} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <div dangerouslySetInnerHTML={{ __html: marked(postData.body) }} />
       </article>
     </Layout>
   );
@@ -32,7 +36,8 @@ const Post = ({
 export default Post;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllPostIds();
+  const paths = await getAllPostIds();
+
   return {
     paths,
     fallback: false,
@@ -41,9 +46,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postData = await getPostData(params.id as string);
+  const tagsJson = await getAllTags();
+
+  const allTags = tagsJson.contents;
+  console.log(postData);
+  console.log(allTags);
   return {
     props: {
       postData,
+      allTags,
     },
   };
 };
