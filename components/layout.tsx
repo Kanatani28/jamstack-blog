@@ -3,16 +3,27 @@ import Link from "next/link";
 import Header from "./molecules/Header";
 import Footer from "./molecules/Footer";
 import SideBar from "./molecules/SideBar";
+import { GetStaticProps } from "next";
 
 export const siteTitle = "まろぶろぐ";
 
 const Layout = ({
   children,
+  tags,
   home,
 }: {
   children: React.ReactNode;
+  tags: {
+    id: string;
+    name: string;
+    image: {
+      url: string;
+      name: string;
+    };
+  }[];
   home?: boolean;
 }): JSX.Element => {
+  console.log(tags);
   return (
     <div>
       <Head>
@@ -35,7 +46,7 @@ const Layout = ({
         <div className="my-5">
           <div className="float-left w-2/3">{children}</div>
           <div className="float-left w-1/3">
-            <SideBar />
+            <SideBar tags={tags} />
           </div>
           <div className="clear-both"></div>
         </div>

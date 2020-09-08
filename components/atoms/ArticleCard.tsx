@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Date from "../date";
 import classNames from "classnames/bind";
+import Tag from "./Tag";
+import marked from "marked";
 
 const ArticleCard = ({
   title,
@@ -8,50 +10,66 @@ const ArticleCard = ({
   date,
   bodyBegining,
   top,
+  tags,
 }: {
   title: string;
   url: string;
   date: string;
   bodyBegining: string;
   top?: boolean;
+  tags?: {
+    id: string;
+    name: string;
+    image: {
+      name: string;
+      url: string;
+    };
+  }[];
 }): JSX.Element => (
-  <>
-    <div className="rounded overflow-hidden shadow-lg">
-      <img
-        className="w-full"
-        src="https://images.microcms-assets.io/protected/ap-northeast-1:e6a442ba-1b7e-408b-91c1-74600a2683a1/service/maro-blog/media/python.png"
-        alt="Sunset in the mountains"
-      />
-      <div className="px-6 py-4">
-        <Date dateString={date} />
-        <div className={classNames([top ? "text-3xl" : "", "mb-2"])}>
-          {title}
+  <Link href={url}>
+    <a>
+      <div className="rounded overflow-hidden shadow-lg">
+        <img
+          className="w-full"
+          src={
+            tags
+              ? tags[0].image.url
+              : "https://images.microcms-assets.io/protected/ap-northeast-1:e6a442ba-1b7e-408b-91c1-74600a2683a1/service/maro-blog/media/PC.png"
+          }
+          alt={tags ? tags[0].image.name : "a"}
+        />
+        <div className="px-6 py-4">
+          <Date dateString={date} />
+          <div className={classNames([top ? "text-3xl" : "", "mb-2"])}>
+            {title}
+          </div>
+          <p
+            className={classNames([
+              "text-gray-700",
+              top ? "text-base" : "text-sm",
+              "mb-2",
+              "h-20",
+            ])}
+          >
+            {getBegining(bodyBegining, top)}
+          </p>
         </div>
-        <p
-          className={classNames([
-            "text-gray-700",
-            top ? "text-base" : "text-sm",
-            "mb-2",
-          ])}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-          quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-          nihil.
-        </p>
+        <div className="px-6 pt-4 pb-2">
+          {tags?.map((tag, i) => {
+            return <Tag key={i} tag={tag} />;
+          })}
+        </div>
       </div>
-      <div className="px-6 pt-4 pb-2">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          #photography
-        </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          #travel
-        </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          #winter
-        </span>
-      </div>
-    </div>
-  </>
+    </a>
+  </Link>
 );
 
 export default ArticleCard;
+
+function getBegining(body: string, top?: boolean): string {
+  return (
+    marked(body)
+      .replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "")
+      .slice(0, (top ? 45 : 22) * 4) + "..."
+  );
+}
