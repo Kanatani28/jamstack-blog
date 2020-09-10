@@ -39,8 +39,8 @@ const ArticleCard = ({
           alt={tags ? tags[0].image.name : "a"}
         />
         <div className="px-6 py-4">
-          <Date dateString={date} />
-          <div className={classNames([top ? "text-3xl" : "", "mb-2"])}>
+          <Date textSize={top ? "text-sm" : "text-xs"} dateString={date} />
+          <div className={classNames([top ? "text-3xl" : "", "mb-2", "mt-2"])}>
             {title}
           </div>
           <p
@@ -56,7 +56,9 @@ const ArticleCard = ({
         </div>
         <div className="px-6 pt-4 pb-2">
           {tags?.map((tag, i) => {
-            return <Tag key={i} tag={tag} />;
+            return (
+              <Tag key={i} tag={tag} textSize={top ? "text-md" : "text-sm"} />
+            );
           })}
         </div>
       </div>
