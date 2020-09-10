@@ -1,67 +1,52 @@
 import Layout, { siteTitle } from "../../components/layout";
-import { getAllPostIds, getPostData } from "../../lib/posts";
 import Head from "next/head";
-import Date from "../../components/date";
 import { GetStaticProps, GetStaticPaths } from "next";
 import ArticleCard from "../../components/atoms/ArticleCard";
 import Pagination from "../../components/atoms/Pagination";
-
-const TEST_TITLE =
-  "Spring×Kotlin×MySQL×Mybatis×ThymeleafでサンプルWebアプリ作ってみた";
+import { getAllTags } from "../../lib/tags";
+import { getPageNumbersWithoutFirst, getOffset } from "../../lib/utils";
+import { getArticles } from "../../lib/posts";
 
 const Page = ({
-  postData,
+  articles,
+  allTags,
 }: {
-  postData: {
+  articles: {
+    id: string;
     title: string;
-    date: string;
-    contentHtml: string;
-  };
+    body: string;
+    tags: any;
+    createdAt: string;
+  }[];
+  allTags: {
+    id: string;
+    name: string;
+    image: {
+      url: string;
+      name: string;
+    };
+  }[];
 }): JSX.Element => {
   return (
-    <Layout home>
+    <Layout tags={allTags} home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section>
         <div className="grid grid-cols-1 gap-4">
           <div className="grid grid-cols-2 gap-4">
-            <ArticleCard
-              title={TEST_TITLE}
-              url="a"
-              date="2017-04-20"
-              bodyBegining="a"
-            />
-            <ArticleCard
-              title={TEST_TITLE}
-              url="a"
-              date="2017-04-20"
-              bodyBegining="a"
-            />
-            <ArticleCard
-              title={TEST_TITLE}
-              url="a"
-              date="2017-04-20"
-              bodyBegining="a"
-            />
-            <ArticleCard
-              title={TEST_TITLE}
-              url="a"
-              date="2017-04-20"
-              bodyBegining="a"
-            />
-            <ArticleCard
-              title={TEST_TITLE}
-              url="a"
-              date="2017-04-20"
-              bodyBegining="a"
-            />
-            <ArticleCard
-              title={TEST_TITLE}
-              url="a"
-              date="2017-04-20"
-              bodyBegining="a"
-            />
+            {articles.map((article, i) => {
+              return (
+                <ArticleCard
+                  key={i}
+                  title={article.title}
+                  url={article.id}
+                  date={article.createdAt}
+                  bodyBegining={article.body}
+                  tags={article.tags}
+                />
+              );
+            })}
           </div>
         </div>
         <Pagination />
@@ -72,19 +57,34 @@ const Page = ({
 
 export default Page;
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const paths = getAllPostIds();
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
+export const getStaticPaths: GetStaticPaths = async () => {
+  const articlesJson = await getArticles({ limit: 6, offset: 1 });
+  const pageNumbers = getPageNumbersWithoutFirst(articlesJson.totalCount);
 
-// export const getStaticProps: GetStaticProps = async ({ params }) => {
-//   const postData = await getPostData(params.page as string);
-//   return {
-//     props: {
-//       postData,
-//     },
-//   };
-// };
+  const paths = pageNumbers.map((v) => {
+    return { params: { page: String(v) } };
+  });
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const articlesJson = await getArticles({
+    limit: 6,
+    offset: getOffset(Number(params.page)),
+  });
+  const tagsJson = await getAllTags();
+
+  const articles = articlesJson.contents;
+  const allTags = tagsJson.contents;
+
+  return {
+    props: {
+      articles,
+      allTags,
+    },
+  };
+};

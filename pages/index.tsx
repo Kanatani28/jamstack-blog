@@ -1,16 +1,16 @@
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
-import { getSortedPostsData } from "../lib/posts";
+import { getArticles } from "../lib/posts";
 import { GetStaticProps } from "next";
 import ArticleCard from "../components/atoms/ArticleCard";
 import Pagination from "../components/atoms/Pagination";
 import { getAllTags } from "../lib/tags";
 
 const Home = ({
-  allPostsData,
+  articles,
   allTags,
 }: {
-  allPostsData: {
+  articles: {
     id: string;
     title: string;
     body: string;
@@ -34,15 +34,15 @@ const Home = ({
       <section>
         <div className="grid grid-cols-1 gap-4">
           <ArticleCard
-            title={allPostsData[0].title}
-            url={allPostsData[0].id}
-            date={allPostsData[0].createdAt}
-            bodyBegining={allPostsData[0].body}
-            tags={allPostsData[0].tags}
+            title={articles[0].title}
+            url={articles[0].id}
+            date={articles[0].createdAt}
+            bodyBegining={articles[0].body}
+            tags={articles[0].tags}
             top
           />
           <div className="grid grid-cols-2 gap-4">
-            {allPostsData.slice(1).map((post, i) => {
+            {articles.slice(1).map((post, i) => {
               return (
                 <ArticleCard
                   key={i}
@@ -65,15 +65,15 @@ const Home = ({
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const postsJson = await getSortedPostsData();
+  const articlesJson = await getArticles({ limit: 5 });
   const tagsJson = await getAllTags();
 
-  const allPostsData = postsJson.contents;
+  const articles = articlesJson.contents;
   const allTags = tagsJson.contents;
 
   return {
     props: {
-      allPostsData,
+      articles,
       allTags,
     },
   };
