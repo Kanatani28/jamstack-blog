@@ -8,6 +8,7 @@ import { getAllTags } from "../lib/tags";
 
 const Home = ({
   articles,
+  articlesTotalCount,
   allTags,
 }: {
   articles: {
@@ -17,6 +18,7 @@ const Home = ({
     tags: any;
     createdAt: string;
   }[];
+  articlesTotalCount: number;
   allTags: {
     id: string;
     name: string;
@@ -56,7 +58,7 @@ const Home = ({
             })}
           </div>
         </div>
-        <Pagination />
+        <Pagination currentPage={1} totalCount={articlesTotalCount} />
       </section>
     </Layout>
   );
@@ -70,10 +72,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const articles = articlesJson.contents;
   const allTags = tagsJson.contents;
+  const articlesTotalCount = articlesJson.totalCount;
 
   return {
     props: {
       articles,
+      articlesTotalCount,
       allTags,
     },
   };

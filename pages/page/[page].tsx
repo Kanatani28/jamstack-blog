@@ -9,6 +9,8 @@ import { getArticles } from "../../lib/posts";
 
 const Page = ({
   articles,
+  articlesTotalCount,
+  currentPage,
   allTags,
 }: {
   articles: {
@@ -18,6 +20,8 @@ const Page = ({
     tags: any;
     createdAt: string;
   }[];
+  currentPage: number;
+  articlesTotalCount: number;
   allTags: {
     id: string;
     name: string;
@@ -49,7 +53,7 @@ const Page = ({
             })}
           </div>
         </div>
-        <Pagination />
+        <Pagination currentPage={currentPage} totalCount={articlesTotalCount} />
       </section>
     </Layout>
   );
@@ -72,18 +76,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const currentPage = Number(params.page);
   const articlesJson = await getArticles({
     limit: 6,
-    offset: getOffset(Number(params.page)),
+    offset: getOffset(currentPage),
   });
   const tagsJson = await getAllTags();
 
   const articles = articlesJson.contents;
+  const articlesTotalCount = articlesJson.totalCount;
   const allTags = tagsJson.contents;
 
   return {
     props: {
       articles,
+      currentPage,
+      articlesTotalCount,
       allTags,
     },
   };
