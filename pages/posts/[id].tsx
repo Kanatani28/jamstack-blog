@@ -5,6 +5,7 @@ import Date from "../../components/date";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { getAllTags } from "../../lib/tags";
 import marked from "marked";
+import CardImage from "../../components/atoms/CardImage";
 
 const Post = ({
   postData,
@@ -14,6 +15,12 @@ const Post = ({
     title: string;
     createdAt: string;
     body: string;
+    tags: {
+      image: {
+        url: string;
+        name: string;
+      }[];
+    };
   };
   allTags: any;
 }): JSX.Element => {
@@ -23,11 +30,15 @@ const Post = ({
         <title>{postData.title}</title>
       </Head>
       <article>
-        <h1>{postData.title}</h1>
-        <div>
+        <CardImage
+          alt={postData.tags[0].image.name}
+          url={postData.tags[0].image.url}
+        />
+        <h1 className="text-3xl">{postData.title}</h1>
+        <div className="mb-2">
           <Date dateString={postData.createdAt} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: marked(postData.body) }} />
+        <div dangerouslySetInnerHTML={{ __html: postData.body }} />
       </article>
     </Layout>
   );
@@ -50,7 +61,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const allTags = tagsJson.contents;
   console.log(postData);
-  console.log(allTags);
+  // console.log(allTags);
   return {
     props: {
       postData,

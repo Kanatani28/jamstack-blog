@@ -52,13 +52,6 @@ const Layout = ({
         </div>
       </main>
       <Footer />
-      {!home && (
-        <div>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { siteTitle } from "../layout";
-import ArticleCard from "../atoms/ArticleCard";
+import ArticleCard from "../molecules/ArticleCard";
 import Pagination from "../atoms/Pagination";
 
 const ArticleList = ({

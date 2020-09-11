@@ -43,13 +43,6 @@ export async function getPostData(id: string) {
   return { ...article };
 }
 
-export function getBegining(body: string): string {
-  return (
-    marked(body)
-      .replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "")
-      .slice(0, 45 * 4) + "..."
-  );
-}
 export const getArticlesByTag = async (tagId: string) => {
   const articles = await fetch(
     `${process.env.API_HOST}/articles?filters=tags[contains]${tagId}`,

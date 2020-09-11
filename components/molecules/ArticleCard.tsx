@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Date from "../date";
 import classNames from "classnames/bind";
-import Tag from "./Tag";
+import Tag from "../atoms/Tag";
 import marked from "marked";
+import CardImage from "../atoms/CardImage";
 
 const ArticleCard = ({
   title,
@@ -26,18 +27,10 @@ const ArticleCard = ({
     };
   }[];
 }): JSX.Element => (
-  <Link href={`posts/${url}`}>
+  <Link href={`/posts/${url}`}>
     <a>
       <div className="rounded overflow-hidden shadow-lg">
-        <img
-          className="w-full"
-          src={
-            tags
-              ? tags[0].image.url
-              : "https://images.microcms-assets.io/protected/ap-northeast-1:e6a442ba-1b7e-408b-91c1-74600a2683a1/service/maro-blog/media/PC.png"
-          }
-          alt={tags ? tags[0].image.name : "a"}
-        />
+        <CardImage alt={tags[0].image.name} url={tags[0].image.url} />
         <div className="px-6 py-4">
           <Date textSize={top ? "text-sm" : "text-xs"} dateString={date} />
           <div className={classNames([top ? "text-3xl" : "", "mb-2", "mt-2"])}>

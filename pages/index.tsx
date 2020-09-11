@@ -2,7 +2,7 @@ import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 import { getArticles } from "../lib/posts";
 import { GetStaticProps } from "next";
-import ArticleCard from "../components/atoms/ArticleCard";
+import ArticleCard from "../components/molecules/ArticleCard";
 import Pagination from "../components/atoms/Pagination";
 import { getAllTags } from "../lib/tags";
 
