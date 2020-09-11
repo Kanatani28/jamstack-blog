@@ -50,3 +50,14 @@ export function getBegining(body: string): string {
       .slice(0, 45 * 4) + "..."
   );
 }
+export const getArticlesByTag = async (tagId: string) => {
+  const articles = await fetch(
+    `${process.env.API_HOST}/articles?filters=tags[contains]${tagId}`,
+    {
+      headers: { "x-api-key": process.env.X_API_KEY },
+    }
+  ).then((response) => {
+    return response.json();
+  });
+  return articles;
+};
