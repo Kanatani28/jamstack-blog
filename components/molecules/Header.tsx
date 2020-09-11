@@ -4,7 +4,7 @@ import { THEME_COLORS } from "../../lib/common";
 
 const Header = ({ title }: { title: string }): JSX.Element => (
   <header>
-    <div className="bg-gray-800">
+    <div className={`bg-${THEME_COLORS.menu}`}>
       <div
         className={classNames([
           "container",
@@ -12,7 +12,6 @@ const Header = ({ title }: { title: string }): JSX.Element => (
           "px-20",
           "grid",
           "grid-cols-11",
-          `bg-${THEME_COLORS.menu}`,
         ])}
       >
         <MenuLink title="Top" url="/" />

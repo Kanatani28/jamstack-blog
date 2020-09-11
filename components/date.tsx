@@ -1,5 +1,6 @@
 import { parseISO, format } from "date-fns";
 import classNamesBind from "classnames/bind";
+import { THEME_COLORS } from "../lib/common";
 
 const DATE_FORMAT = "LLLL d, yyyy";
 
@@ -18,7 +19,7 @@ const Date = ({
         "inline-block",
         textSize || "text-xs",
         "rounded",
-        "bg-blue-600",
+        `bg-${THEME_COLORS.menu}`,
         "px-2",
       ])}
       dateTime={dateString}

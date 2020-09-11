@@ -4,7 +4,6 @@ import Head from "next/head";
 import Date from "../../components/date";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { getAllTags } from "../../lib/tags";
-import marked from "marked";
 import CardImage from "../../components/atoms/CardImage";
 
 const Post = ({
@@ -60,8 +59,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tagsJson = await getAllTags();
 
   const allTags = tagsJson.contents;
-  console.log(postData);
-  // console.log(allTags);
+
   return {
     props: {
       postData,

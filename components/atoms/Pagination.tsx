@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getPageNumbers, isFirst, isLast } from "../../lib/pageUtils";
 import classNamesBind from "classnames/bind";
+import { THEME_COLORS } from "../../lib/common";
 
 const PaginationLink = ({
   text,
@@ -17,15 +18,15 @@ const PaginationLink = ({
     <Link href={String(url)}>
       <div
         className={classNamesBind([
-          isActive ? "bg-blue-500" : "",
-          isDisabled ? "" : "hover:bg-blue-500",
-          "text-gray-700",
+          isActive ? `bg-${THEME_COLORS.menu} text-white` : "text-gray-700",
+          isDisabled
+            ? "text-gray-700"
+            : `hover:bg-${THEME_COLORS.menu} hover:text-white`,
           "text-center",
-          "bg-gray-400",
           "px-4",
           "py-2",
           "m-2",
-          "text-lg",
+          "text-sm",
         ])}
         style={
           isDisabled || isActive

@@ -23,6 +23,7 @@ const Tag = ({
         "mb-2",
         textSize || "text-sm",
       ])}
+      style={{ cursor: "pointer" }}
     >
       {`#${tag.name}`}
     </span>
