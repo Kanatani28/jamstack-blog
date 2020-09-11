@@ -4,7 +4,7 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import ArticleCard from "../../components/atoms/ArticleCard";
 import Pagination from "../../components/atoms/Pagination";
 import { getAllTags } from "../../lib/tags";
-import { getPageNumbersWithoutFirst, getOffset } from "../../lib/utils";
+import { getPageNumbersWithoutFirst, getOffset } from "../../lib/pageUtils";
 import { getArticles } from "../../lib/posts";
 
 const Page = ({

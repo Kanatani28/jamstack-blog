@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getPageNumbers, isFirst, isLast } from "../../lib/utils";
+import { getPageNumbers, isFirst, isLast } from "../../lib/pageUtils";
 import classNamesBind from "classnames/bind";
 
 const PaginationLink = ({
