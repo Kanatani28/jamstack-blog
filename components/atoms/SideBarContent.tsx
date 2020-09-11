@@ -1,5 +1,3 @@
-import { FunctionComponent } from "react";
-
 const SideBarContent = ({
   title,
   content,

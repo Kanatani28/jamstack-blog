@@ -11,7 +11,7 @@
 
 .title {
   @apply text-4xl text-center;
-  color: #333;
+  /* color: #333; */
   line-height: 1.15;
 }
 

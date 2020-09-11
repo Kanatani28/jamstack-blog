@@ -1,11 +1,28 @@
 import { parseISO, format } from "date-fns";
+import classNamesBind from "classnames/bind";
 
 const DATE_FORMAT = "LLLL d, yyyy";
 
-const Date = ({ dateString }: { dateString: string }): JSX.Element => {
+const Date = ({
+  dateString,
+  textSize,
+}: {
+  dateString: string;
+  textSize?: string;
+}): JSX.Element => {
   const date = parseISO(dateString);
   return (
-    <time className="text-sm" dateTime={dateString}>
+    <time
+      className={classNamesBind([
+        "text-white",
+        "inline-block",
+        textSize || "text-xs",
+        "rounded",
+        "bg-blue-600",
+        "px-2",
+      ])}
+      dateTime={dateString}
+    >
       {format(date, DATE_FORMAT)}
     </time>
   );
