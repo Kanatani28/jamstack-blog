@@ -15,8 +15,8 @@ const Header = ({ title }: { title: string }): JSX.Element => (
         ])}
       >
         <MenuLink title="Top" url="/" />
-        <MenuLink title="About" url="about" />
-        <MenuLink title="Other" url="other" />
+        <MenuLink notYet title="About" url="about" />
+        <MenuLink notYet title="Other" url="other" />
       </div>
     </div>
     <div className={classNames(["hero", `bg-${THEME_COLORS.hero}`])}>

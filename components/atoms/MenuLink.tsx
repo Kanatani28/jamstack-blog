@@ -4,9 +4,11 @@ import classNames from "classnames/bind";
 const MenuLink = ({
   title,
   url,
+  notYet,
 }: {
   title: string;
   url: string;
+  notYet?: boolean;
 }): JSX.Element => (
   <Link href={url}>
     <a
@@ -18,6 +20,7 @@ const MenuLink = ({
         "hover:text-black",
         "text-white"
       )}
+      style={notYet ? { cursor: "not-allowed", pointerEvents: "none" } : {}}
     >
       {title}
     </a>
