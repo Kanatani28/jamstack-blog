@@ -31,7 +31,7 @@ const Page = ({
   }[];
 }): JSX.Element => {
   return (
-    <Layout tags={allTags} home>
+    <Layout tags={allTags}>
       <ArticleList
         articles={articles}
         articlesTotalCount={articlesTotalCount}

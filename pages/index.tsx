@@ -29,7 +29,7 @@ const Home = ({
   }[];
 }): JSX.Element => {
   return (
-    <Layout tags={allTags} home>
+    <Layout tags={allTags}>
       <Head>
         <title>{siteTitle}</title>
       </Head>

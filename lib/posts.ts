@@ -1,7 +1,3 @@
-import marked from "marked";
-
-// const postsDirectory = path.join(process.cwd(), "posts");
-
 export async function getArticles({
   limit,
   offset = 0,

@@ -1,16 +1,13 @@
 import Head from "next/head";
-import Link from "next/link";
 import Header from "./molecules/Header";
 import Footer from "./molecules/Footer";
 import SideBar from "./molecules/SideBar";
-import { GetStaticProps } from "next";
 
 export const siteTitle = "まろぶろぐ";
 
 const Layout = ({
   children,
   tags,
-  home,
 }: {
   children: React.ReactNode;
   tags: {
@@ -21,9 +18,7 @@ const Layout = ({
       name: string;
     };
   }[];
-  home?: boolean;
 }): JSX.Element => {
-  console.log(tags);
   return (
     <div>
       <Head>
