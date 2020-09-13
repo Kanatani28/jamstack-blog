@@ -5,6 +5,7 @@ import Date from "../../components/date";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { getAllTags } from "../../lib/tags";
 import CardImage from "../../components/atoms/CardImage";
+import MarkdownView from "../../components/molecules/MarkdownView";
 
 const Post = ({
   postData,
@@ -14,6 +15,7 @@ const Post = ({
     title: string;
     createdAt: string;
     body: string;
+    content: string;
     tags: {
       image: {
         url: string;
@@ -37,7 +39,7 @@ const Post = ({
         <div className="mb-2">
           <Date dateString={postData.createdAt} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.body }} />
+        <MarkdownView content={postData.content} />
       </article>
     </Layout>
   );
@@ -67,3 +69,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
   };
 };
+
+function getBegining(body: string): string {
+  return body.replace(/<br>/g, "\r\n");
+  // return body.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "");
+}
