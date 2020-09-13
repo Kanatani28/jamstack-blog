@@ -10,15 +10,12 @@ const { className, styles } = css.resolve`
     @apply font-bold my-2;
   }
   h1 {
-    color: green;
     @apply text-2xl;
   }
   h2 {
-    color: green;
     @apply text-xl;
   }
   h3 {
-    color: green;
     @apply text-lg;
   }
   table,
@@ -27,7 +24,7 @@ const { className, styles } = css.resolve`
     border: solid 1px #000000;
   }
   pre {
-    @apply my-10;
+    @apply my-3;
   }
   code {
     @apply text-sm;
@@ -35,6 +32,7 @@ const { className, styles } = css.resolve`
 `;
 
 const md = markdown({
+  breaks: true,
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
@@ -59,9 +57,14 @@ const MarkdownView = ({ content }: { content: string }): JSX.Element => {
     .render(
       content.replace(/```.*\n/g, (codePrefix) => codePrefix.replace(/:.*/, ""))
     )
-    .replace(/<[^>|/]*>/g, (noClassHtmlStr) =>
-      noClassHtmlStr.replace(">", ` class="${className}">`)
-    );
+    .replace(/<[^>|/]*>/g, (htmlTag) => {
+      return htmlTag.includes("class=")
+        ? htmlTag.replace(
+            /class=".*"/,
+            (classAttr) => classAttr.slice(0, -1) + ` ${className}"`
+          )
+        : htmlTag.replace(">", ` class="${className}">`);
+    });
   return (
     <>
       <div
