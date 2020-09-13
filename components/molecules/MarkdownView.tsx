@@ -1,6 +1,7 @@
 import css from "styled-jsx/css";
 import markdown from "markdown-it";
 import emoji from "markdown-it-emoji";
+import hljs from "highlight.js";
 
 const { className, styles } = css.resolve`
   h1,
@@ -25,14 +26,39 @@ const { className, styles } = css.resolve`
   th {
     border: solid 1px #000000;
   }
+  pre {
+    @apply my-10;
+  }
+  code {
+    @apply text-sm;
+  }
 `;
 
-const md = markdown();
+const md = markdown({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        console.log(lang);
+        return (
+          '<pre class="hljs"><code>' +
+          hljs.highlight(lang, str, true).value +
+          "</code></pre>"
+        );
+      } catch (__) {}
+    }
+
+    return (
+      '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + "</code></pre>"
+    );
+  },
+});
 md.use(emoji);
 
 const MarkdownView = ({ content }: { content: string }): JSX.Element => {
   const html = md
-    .render(content)
+    .render(
+      content.replace(/```.*\n/g, (codePrefix) => codePrefix.replace(/:.*/, ""))
+    )
     .replace(/<[^>|/]*>/g, (noClassHtmlStr) =>
       noClassHtmlStr.replace(">", ` class="${className}">`)
     );
