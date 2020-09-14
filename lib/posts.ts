@@ -1,69 +1,52 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
-import remark from 'remark'
-import html from 'remark-html'
-
-const postsDirectory = path.join(process.cwd(), 'posts')
-
-export function getSortedPostsData() {
-  // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory)
-  const allPostsData = fileNames.map(fileName => {
-    // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '')
-
-    // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName)
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
-
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents)
-
-    // Combine the data with the id
-    return {
-      id,
-      ...(matterResult.data as { date: string; title: string })
+export async function getArticles({
+  limit,
+  offset = 0,
+}: {
+  limit: number;
+  offset?: number;
+}) {
+  const articles = await fetch(
+    `${process.env.API_HOST}/articles?limit=${limit}&offset=${offset}`,
+    {
+      headers: { "x-api-key": process.env.X_API_KEY },
     }
-  })
-  // Sort posts by date
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1
-    } else {
-      return -1
-    }
-  })
+  ).then((response) => {
+    return response.json();
+  });
+
+  return articles;
 }
 
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory)
-  return fileNames.map(fileName => {
-    return {
-      params: {
-        id: fileName.replace(/\.md$/, '')
-      }
-    }
-  })
+export async function getAllPostIds() {
+  const articles = await fetch(`${process.env.API_HOST}/articles`, {
+    headers: { "x-api-key": process.env.X_API_KEY },
+  }).then((response) => {
+    return response.json();
+  });
+
+  return articles.contents.map((article) => {
+    return { params: { id: article.id } };
+  });
 }
 
 export async function getPostData(id: string) {
-  const fullPath = path.join(postsDirectory, `${id}.md`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const article = await fetch(`${process.env.API_HOST}/articles/${id}`, {
+    headers: { "x-api-key": process.env.X_API_KEY },
+  }).then((response) => {
+    return response.json();
+  });
 
-  // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents)
-
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content)
-  const contentHtml = processedContent.toString()
-
-  // Combine the data with the id and contentHtml
-  return {
-    id,
-    contentHtml,
-    ...(matterResult.data as { date: string; title: string })
-  }
+  return { ...article };
 }
+
+export const getArticlesByTag = async (tagId: string) => {
+  const articles = await fetch(
+    `${process.env.API_HOST}/articles?filters=tags[contains]${tagId}`,
+    {
+      headers: { "x-api-key": process.env.X_API_KEY },
+    }
+  ).then((response) => {
+    return response.json();
+  });
+  return articles;
+};

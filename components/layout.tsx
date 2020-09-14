@@ -1,16 +1,23 @@
 import Head from "next/head";
-import Link from "next/link";
-import HeaderLink from "./atoms/HeaderLink";
-import Copyright from "./atoms/Copyright";
+import Header from "./molecules/Header";
+import Footer from "./molecules/Footer";
+import SideBar from "./molecules/SideBar";
 
 export const siteTitle = "まろぶろぐ";
 
 const Layout = ({
   children,
-  home,
+  tags,
 }: {
   children: React.ReactNode;
-  home?: boolean;
+  tags: {
+    id: string;
+    name: string;
+    image: {
+      url: string;
+      name: string;
+    };
+  }[];
 }): JSX.Element => {
   return (
     <div>
@@ -29,36 +36,17 @@ const Layout = ({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header>
-        <div className="container mx-auto grid grid-cols-4">
-          <HeaderLink title="About" url="about" />
-          <HeaderLink title="Other" url="other" />
-        </div>
-        <div className="hero bg-red-100">
-          <h1 className="title">{siteTitle}</h1>
-          <p className="text-center text-teal-500 text-2xl py-4">
-            This is an Example.
-          </p>
-        </div>
-      </header>
-      <main className="container mx-auto">{children}</main>
-      <footer className="bg-red-100">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-4">
-            <HeaderLink title="About" url="about" />
-            <HeaderLink title="Other" url="other" />
+      <Header title={siteTitle} />
+      <main className="container mx-auto px-20">
+        <div className="my-5">
+          <div className="float-left w-2/3">{children}</div>
+          <div className="float-left w-1/3">
+            <SideBar tags={tags} />
           </div>
-          <hr />
-          <Copyright />
+          <div className="clear-both"></div>
         </div>
-      </footer>
-      {!home && (
-        <div>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
+      </main>
+      <Footer />
     </div>
   );
 };

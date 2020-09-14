@@ -10,8 +10,8 @@
 }
 
 .title {
-  @apply text-5xl text-center;
-  color: #333;
+  @apply text-4xl text-center;
+  /* color: #333; */
   line-height: 1.15;
 }
 
