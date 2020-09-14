@@ -2,6 +2,7 @@ import css from "styled-jsx/css";
 import markdown from "markdown-it";
 import emoji from "markdown-it-emoji";
 import hljs from "highlight.js";
+import { removeCodeTitles, addStyledJsxClass } from "../../lib/markdownUtils";
 
 const { className, styles } = css.resolve`
   h1,
@@ -53,18 +54,11 @@ const md = markdown({
 md.use(emoji);
 
 const MarkdownView = ({ content }: { content: string }): JSX.Element => {
-  const html = md
-    .render(
-      content.replace(/```.*\n/g, (codePrefix) => codePrefix.replace(/:.*/, ""))
-    )
-    .replace(/<[^>|/]*>/g, (htmlTag) => {
-      return htmlTag.includes("class=")
-        ? htmlTag.replace(
-            /class=".*"/,
-            (classAttr) => classAttr.slice(0, -1) + ` ${className}"`
-          )
-        : htmlTag.replace(">", ` class="${className}">`);
-    });
+  const html = addStyledJsxClass(
+    md.render(removeCodeTitles(content)),
+    className
+  );
+
   return (
     <>
       <div
