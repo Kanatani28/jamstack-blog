@@ -32,7 +32,7 @@ const ArticleList = ({
                 title={article.title}
                 url={article.id}
                 date={article.createdAt}
-                bodyBegining={article.body}
+                content={article.content}
                 tags={article.tags}
               />
             );
