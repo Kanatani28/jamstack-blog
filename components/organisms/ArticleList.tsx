@@ -5,13 +5,11 @@ import Pagination from "../atoms/Pagination";
 
 const ArticleList = ({
   articles,
-  articlesTotalCount,
-  currentPage,
 }: {
   articles: {
     id: string;
     title: string;
-    body: string;
+    content: string;
     tags: any;
     createdAt: string;
   }[];
