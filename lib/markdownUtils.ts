@@ -1,3 +1,31 @@
+import markdown from "markdown-it";
+import emoji from "markdown-it-emoji";
+import hljs from "highlight.js";
+
+const md = markdown({
+  breaks: true,
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        console.log(lang);
+        return (
+          '<pre class="hljs"><code>' +
+          hljs.highlight(lang, str, true).value +
+          "</code></pre>"
+        );
+      } catch (__) {}
+    }
+
+    return (
+      '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + "</code></pre>"
+    );
+  },
+});
+md.use(emoji);
+
+export const markdownToHtml = (markdownStr: string): string =>
+  md.render(markdownStr);
+
 // Qiitaのマークダウンそのままだとハイライトが効かないのでコードのタイトル部分を削除する
 export const removeCodeTitles = (markdownStr: string): string => {
   return markdownStr.replace(/```.*\n/g, (codePrefix) =>

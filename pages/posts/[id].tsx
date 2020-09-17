@@ -35,7 +35,7 @@ const Post = ({
           alt={postData.tags[0].image.name}
           url={postData.tags[0].image.url}
         />
-        <h1 className="text-3xl">{postData.title}</h1>
+        <h1 className="text-3xl font-bold">{postData.title}</h1>
         <div className="mb-2">
           <Date dateString={postData.createdAt} />
         </div>

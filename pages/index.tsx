@@ -14,7 +14,7 @@ const Home = ({
   articles: {
     id: string;
     title: string;
-    body: string;
+    content: string;
     tags: any;
     createdAt: string;
   }[];
@@ -39,7 +39,7 @@ const Home = ({
             title={articles[0].title}
             url={articles[0].id}
             date={articles[0].createdAt}
-            bodyBegining={articles[0].body}
+            content={articles[0].content}
             tags={articles[0].tags}
             top
           />
@@ -51,7 +51,7 @@ const Home = ({
                   title={post.title}
                   url={post.id}
                   date={post.createdAt}
-                  bodyBegining={post.body}
+                  content={post.content}
                   tags={post.tags}
                 />
               );

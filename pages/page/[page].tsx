@@ -15,7 +15,7 @@ const Page = ({
   articles: {
     id: string;
     title: string;
-    body: string;
+    content: string;
     tags: any;
     createdAt: string;
   }[];
